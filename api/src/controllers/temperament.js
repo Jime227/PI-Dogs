@@ -23,7 +23,7 @@ module.exports = async function getTemperaments(req, res) {
     });
 
     try {
-      let temps = temp.map(async (data) => {
+      temp.map(async (data) => {
         await Temperament.create({
           where: {
             name: data.name,

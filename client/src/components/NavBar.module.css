@@ -1,0 +1,9 @@
+.container {
+  display: inline-block;
+}
+.btn {
+  color: blueviolet;
+}
+.btn :hover {
+  color: #000;
+}

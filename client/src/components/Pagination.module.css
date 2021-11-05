@@ -1,0 +1,38 @@
+.container {
+  display: inline-block;
+}
+
+.numberBlock {
+  background: none;
+  border-radius: 5px;
+  border-color: white;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.number {
+  background-color: blueviolet;
+  font-weight: bold;
+  display: flex;
+  border-radius: 5px;
+  -webkit-box-pack: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  color: white;
+  margin-left: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.number.active a {
+  font-size: large;
+  border-radius: 4px;
+}
+a:hover {
+  background-color: black;
+}
