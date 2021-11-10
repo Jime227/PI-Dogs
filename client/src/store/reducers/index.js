@@ -1,8 +1,9 @@
 const initialState = {
   dogs: [],
-  allDogs: [],
   temperaments: [],
   details: {},
+  createdDogs: [],
+  filter: [],
 };
 
 function reducers(state = initialState, action) {
@@ -11,7 +12,6 @@ function reducers(state = initialState, action) {
       return {
         ...state,
         dogs: action.payload,
-        allDogs: action.payload,
       };
     case "SEARCH_BY_NAME":
       return {
@@ -26,11 +26,55 @@ function reducers(state = initialState, action) {
     case "CREATE_A_DOG":
       return {
         ...state,
+        createdDogs: action.payload,
       };
     case "GET_TEMPERAMENTS":
       return {
         ...state,
         temperaments: action.payload,
+      };
+    case "ORDER_A":
+      return {
+        ...state,
+        dogs: action.payload,
+      };
+    case "ORDER_Z":
+      return {
+        ...state,
+        dogs: action.payload,
+      };
+    case "WEIGHT_A":
+      return {
+        ...state,
+        dogs: action.payload,
+      };
+    case "WEIGHT_Z":
+      return {
+        ...state,
+        dogs: action.payload,
+      };
+    case "DB":
+      return {
+        ...state,
+        dogs: state.dogs.filter((e) => e.id.length > 6),
+      };
+
+    case "ALL":
+      return {
+        ...state,
+        dogs: state.dogs,
+      };
+    case "FILTER_TEMPERAMENTS":
+      const filtered =
+        action.payload === null
+          ? state.dogs
+          : state.dogs.filter((d) => {
+              if (d.temperament && d.temperament.includes(action.payload))
+                return d;
+            });
+      return {
+        ...state,
+        dogs: filtered,
       };
     default:
       return state;

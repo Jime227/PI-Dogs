@@ -5,6 +5,7 @@ const { Dog, Temperament } = require("../db");
 async function getDogs(req, res) {
   try {
     let dogs = [];
+    let dogsdb = [];
     let apiDogs = await axios
       .get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
       .then((response) => {
@@ -14,7 +15,8 @@ async function getDogs(req, res) {
             id: d.id,
             height: d.height.metric,
             // height_min: d.height.metric.split(" - ")[0],
-            weight: d.weight.metric,
+            weight: d.weight.metric.split("-")[0],
+
             // weight_min: d.weight.metric.split(" - ")[0],
             life_span: d.life_span,
             temperament: d.temperament,
@@ -23,17 +25,38 @@ async function getDogs(req, res) {
         });
       });
 
-    let dbDogs = await Dog.findAll({
-      include: {
-        model: Temperament,
-        attributes: ["name"],
-        through: {
-          attributes: [],
-        },
-      },
-    });
+    let dbDogs = await Dog
+      .findAll
+      //   {
+      //   include: {
+      //     model: Temperament,
+      //     attributes: ["name"],
+      //     through: {
+      //       attributes: [],
+      //     },
+      //   },
+      // }
+      // {
+      //   include: [Temperament],
+      // }
+      ()
+      .then((response) => {
+        dogsdb = response.map((d) => {
+          return {
+            name: d.name,
+            id: d.id,
+            height: d.height,
+            // height_min: d.height.metric.split(" - ")[0],
+            weight: d.weight,
+            // weight_min: d.weight.metric.split(" - ")[0],
+            life_span: d.life_span,
+            temperament: d.temperament,
+            image: d.image,
+          };
+        });
+      });
 
-    let allDogs = dogs.concat(dbDogs);
+    let allDogs = dogs.concat(dogsdb);
 
     const name = req.query.name;
 
@@ -44,9 +67,9 @@ async function getDogs(req, res) {
 
       found.length < 1
         ? res.json("Dog not found, try another one or add it to our database")
-        : res.json(found);
+        : res.status(200).json(found);
     } else {
-      res.json(allDogs);
+      res.status(200).json(allDogs);
     }
   } catch (error) {
     console.log(error);

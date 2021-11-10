@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const temperament = require("../controllers/temperament");
+//const temperament = require("../controllers/temperament");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {

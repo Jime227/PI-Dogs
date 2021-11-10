@@ -10,9 +10,10 @@ export default function Details({ match }) {
 
   useEffect(() => {
     dispatch(getDetails(match.params.id));
-  }, []);
+  }, [dispatch, match.params.id]);
 
   return (
+    // if para ver si es uuid o no
     <div className={styles.container} key={match.params.id}>
       <div className={styles.imgContainer}>
         <img className={styles.img} src={details.img} alt="Dog" />

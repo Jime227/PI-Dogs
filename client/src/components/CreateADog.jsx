@@ -2,20 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createADog, getTemperaments } from "../store/actions";
 import styles from "./CreateADog.module.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function NewDog() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [input, setInput] = useState({
     name: "",
     height: "",
     weight: "",
     life_span: "",
+    image: "",
     temperaments: [],
   });
   useEffect(() => {
     dispatch(getTemperaments());
-  }, []);
+  }, [dispatch]);
   const temperaments = useSelector((state) => state.temperaments);
   const [chosenTemps, setChosenTemps] = useState([]);
   const handleInputChange = function (e) {
@@ -41,14 +43,22 @@ export default function NewDog() {
       input.height &&
       input.weight &&
       input.life_span &&
+      input.image &&
       input.temperaments
     ) {
       dispatch(createADog(input));
-      setInput([]);
-      setChosenTemps([]);
+      setInput({
+        name: "",
+        height: "",
+        weight: "",
+        life_span: "",
+        image: "",
+        temperaments: [],
+      });
     } else {
       alert("Please check if all the information is correct and complete.");
     }
+    history.push("/home");
   };
 
   return (
@@ -96,6 +106,16 @@ export default function NewDog() {
           />
         </div>
         <div>
+          <label>Image: </label>
+          <input
+            type="text"
+            name="image"
+            value={input.image}
+            onChange={handleInputChange}
+            autoComplete="off"
+          />
+        </div>
+        <div>
           <label>Temperaments: </label>
           <select onChange={handleSelect}>
             <option value="all">Temperaments</option>
@@ -120,11 +140,6 @@ export default function NewDog() {
           <button className={styles.btn} type="submit" onClick={handleSubmit}>
             Create!
           </button>
-        </div>
-        <div>
-          <Link to="/home">
-            <button>Let's get back!</button>
-          </Link>
         </div>
       </form>
     </div>

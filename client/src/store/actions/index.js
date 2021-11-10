@@ -63,3 +63,83 @@ export function getTemperaments() {
     });
   };
 }
+
+export function orderAZ() {
+  return function (dispatch) {
+    return axios.get("http://localhost:3001/dogs").then((response) => {
+      const orderA = response.data.sort((a, b) => {
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+        return 0;
+      });
+      dispatch({
+        type: "ORDER_A",
+        payload: orderA,
+      });
+    });
+  };
+}
+
+export function orderZA() {
+  return function (dispatch) {
+    return axios.get("http://localhost:3001/dogs").then((response) => {
+      const orderZ = response.data.sort((b, a) => {
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+        return 0;
+      });
+      dispatch({
+        type: "ORDER_Z",
+        payload: orderZ,
+      });
+    });
+  };
+}
+export function weightAZ() {
+  return function (dispatch) {
+    return axios.get("http://localhost:3001/dogs").then((response) => {
+      const weightA = response.data.sort((a, b) => {
+        if (Number(a.weight) > Number(b.weight)) return 1;
+        if (Number(a.weight) < Number(b.weight)) return -1;
+        return 0;
+      });
+      dispatch({
+        type: "WEIGHT_A",
+        payload: weightA,
+      });
+    });
+  };
+}
+
+export function weightZA() {
+  return function (dispatch) {
+    return axios.get("http://localhost:3001/dogs").then((response) => {
+      const weightZ = response.data.sort((b, a) => {
+        if (Number(a.weight) > Number(b.weight)) return 1;
+        if (Number(a.weight) < Number(b.weight)) return -1;
+        return 0;
+      });
+      dispatch({
+        type: "WEIGHT_Z",
+        payload: weightZ,
+      });
+    });
+  };
+}
+export function filterBy(value) {
+  if (value === "DB") {
+    return {
+      type: "DB",
+    };
+  } else if (value === "ALL") {
+    return {
+      type: "ALL",
+    };
+  }
+}
+export function filter(payload) {
+  return {
+    type: "FILTER_TEMPERAMENTS",
+    payload,
+  };
+}

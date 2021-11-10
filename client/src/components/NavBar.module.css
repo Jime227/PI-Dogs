@@ -1,9 +1,26 @@
 .container {
-  display: inline-block;
+  background-color: burlywood;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
+
 .btn {
-  color: blueviolet;
+  background-color: blueviolet;
+  color: white;
+  margin: 0pt;
+  margin-left: 3px;
+  text-align: left;
+  float: left;
+  font-size: 16pt;
+  border-radius: 6pt;
 }
 .btn :hover {
   color: #000;
+}
+.SearchBar {
+  justify-content: none;
+  margin-right: 6px;
+  margin: 0pt;
+  float: right;
 }

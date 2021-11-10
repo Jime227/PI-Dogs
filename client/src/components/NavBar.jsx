@@ -11,12 +11,14 @@ const NavBar = () => {
           <button className={style.btn}>Home</button>
         </Link>
       </div>
+      <div className={style.SearchBar}>
+        <SearchBar />
+      </div>
       <div>
         <Link to="/dog">
           <button className={style.btn}>Create a dog!</button>
         </Link>
       </div>
-      <SearchBar />
     </div>
   );
 };
