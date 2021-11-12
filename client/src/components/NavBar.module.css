@@ -17,6 +17,7 @@
 }
 .btn :hover {
   color: #000;
+  border-radius: 6pt;
 }
 .SearchBar {
   justify-content: none;

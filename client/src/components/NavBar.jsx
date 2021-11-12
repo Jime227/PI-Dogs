@@ -7,7 +7,7 @@ const NavBar = () => {
   return (
     <div className={style.container}>
       <div>
-        <Link to="/home">
+        <Link to="/">
           <button className={style.btn}>Home</button>
         </Link>
       </div>

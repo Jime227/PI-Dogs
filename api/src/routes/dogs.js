@@ -9,7 +9,7 @@ router.get("/", getDogs);
 router.get("/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
-    console.log(id);
+
     if (typeof id === "string" && id.length > 8) {
       let dogDetails = await Dog.findByPk(id);
       res.json({
@@ -17,7 +17,7 @@ router.get("/:id", async (req, res, next) => {
         id: dogDetails.id,
         height: dogDetails.height,
         // height_min: d.height.metric.split(" - ")[0],
-        weight: dogDetails.weight.metric.split(" - ")[0],
+        weight: dogDetails.weight,
         // weight_min: d.weight.metric.split(" - ")[0],
         life_span: dogDetails.life_span,
         temperament: dogDetails.temperament,

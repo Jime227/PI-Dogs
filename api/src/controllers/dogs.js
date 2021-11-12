@@ -15,9 +15,9 @@ async function getDogs(req, res) {
             id: d.id,
             height: d.height.metric,
             // height_min: d.height.metric.split(" - ")[0],
-            weight: d.weight.metric.split("-")[0],
-
-            // weight_min: d.weight.metric.split(" - ")[0],
+            weight: d.weight.metric.split("-")[0]
+              ? d.weight.metric.split("-")[0]
+              : 6,
             life_span: d.life_span,
             temperament: d.temperament,
             img: d.image.url,
@@ -25,43 +25,33 @@ async function getDogs(req, res) {
         });
       });
 
-    let dbDogs = await Dog
-      .findAll
-      //   {
-      //   include: {
-      //     model: Temperament,
-      //     attributes: ["name"],
-      //     through: {
-      //       attributes: [],
-      //     },
-      //   },
-      // }
-      // {
-      //   include: [Temperament],
-      // }
-      ()
-      .then((response) => {
-        dogsdb = response.map((d) => {
-          return {
-            name: d.name,
-            id: d.id,
-            height: d.height,
-            // height_min: d.height.metric.split(" - ")[0],
-            weight: d.weight,
-            // weight_min: d.weight.metric.split(" - ")[0],
-            life_span: d.life_span,
-            temperament: d.temperament,
-            image: d.image,
-          };
-        });
+    let dbDogs = await Dog.findAll({
+      include: {
+        model: Temperament,
+        atributes: ["name"],
+      },
+    }).then((response) => {
+      dogsdb = response.map((d) => {
+        return {
+          name: d.name,
+          id: d.id,
+          height: d.height,
+          // height_min: d.height.metric.split(" - ")[0],
+          weight: d.weight,
+          // weight_min: d.weight.metric.split(" - ")[0],
+          life_span: d.life_span,
+          temperament: d.temperament,
+          image: d.image,
+        };
       });
-
+    });
+    // console.log(dogsdb);
     let allDogs = dogs.concat(dogsdb);
 
     const name = req.query.name;
 
     if (name) {
-      const found = dogs.filter((d) =>
+      const found = allDogs.filter((d) =>
         d.name.toLowerCase().includes(name.toLowerCase())
       );
 

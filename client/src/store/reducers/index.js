@@ -3,7 +3,6 @@ const initialState = {
   temperaments: [],
   details: {},
   createdDogs: [],
-  filter: [],
 };
 
 function reducers(state = initialState, action) {

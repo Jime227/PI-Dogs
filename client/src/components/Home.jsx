@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllDogs } from "../store/actions";
-//import { Link } from "react-router-dom";
 import Card from "./Card";
 import Pagination from "./Pagination";
 import styles from "./Home.module.css";
@@ -31,8 +30,9 @@ export default function Home() {
             <Card
               name={d.name}
               temperament={d.temperament}
-              img={d.img}
+              img={d.img ? d.img : d.image}
               id={d.id}
+              key={d.id}
             />
           ))}
         <Pagination

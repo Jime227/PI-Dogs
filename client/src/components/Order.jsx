@@ -13,8 +13,6 @@ import {
 import style from "./Order.module.css";
 
 export default function Order() {
-  // const [chosenTemp, setChosenTemp] = useState();
-  // const [filterTemp, setFilterTemp] = useState([]);
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
   const allTemps = useSelector((state) => state.temperaments);
